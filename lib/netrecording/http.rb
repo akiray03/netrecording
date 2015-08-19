@@ -8,13 +8,13 @@ module Netrecording
         def request(req, body = nil, &block)
           response = alias_for_request(req, body)
 
-          unless NetRecording.recording?
+          unless Netrecording.recording?
             yield response and return if block
             return response
           end
 
           path = "http://#{req.bauth if req.bauth}#{req['host']}#{req.path}"
-          NetRecording.records << { method: req.method, path: path, request: req, response: response }
+          Netrecording.records << { method: req.method, path: path, request: req, response: response }
 
           yield response if block
           response
