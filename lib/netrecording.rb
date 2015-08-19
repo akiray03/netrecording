@@ -1,4 +1,5 @@
 require 'net/http'
+require 'yaml'
 
 require 'netrecording/version'
 require 'netrecording/http'
@@ -34,7 +35,7 @@ module Netrecording
     end
 
     File.open(file_path, 'w') do |fp|
-      fp.puts @@records.to_yaml
+      fp.puts YAML.dump(@@records)
     end
     @@records = []
 
